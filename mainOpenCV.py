@@ -1,6 +1,7 @@
 import cv2
 import sys
 import  colourManipulation
+import edgeDetection
 import numpy as np
 
 argList = sys.argv
@@ -10,22 +11,25 @@ if len(argList) < 4 or len(argList) > 4:
     print("args :: = Input Image Location, Output Image Location, Edge Detection Operation")
 else:
     img = cv2.imread(argList[1])
-    cm = colourManipulation.ImageColourManip("add", img)
-    resImg = cm.mulWithImage(img)
-    cv2.imwrite('res/1x.jpg',resImg)
+    edg = edgeDetection.EdgeDetector(img)
+
+    #cm = colourManipulation.ImageColourManip(img)
+    #resImg = cm.blackAndWhite()
+    #cv2.imwrite('res/1x.jpg',resImg)
+
     print("Action to be performed : ",argList[3])
     if argList[3] == "laplace":
-        laplacian = cv2.Laplacian(img, cv2.CV_64F)
-        cv2.imwrite(argList[2],laplacian)
+        laplacian = edg.laplacian()
+
     elif argList[3] == "sobelx":
-        sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)
-        cv2.imwrite(argList[2], sobelx)
+        sobelx = edg.sobel("x",5)
+
     elif argList[3] == "sobely":
-        sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)
-        cv2.imwrite(argList[2], sobely)
+        sobely = edg.sobel("y",5)
+
     elif argList[3] == "canny":
-        canny = cv2.Canny(img,150,150)
-        cv2.imwrite(argList[2], canny)
+        canny = edg.canny(100,100)
+    edg.saveImage(argList[2])
 
 
 
