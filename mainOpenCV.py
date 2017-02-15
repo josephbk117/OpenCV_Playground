@@ -1,5 +1,6 @@
 import cv2
 import sys
+import  colourManipulation
 import numpy as np
 
 argList = sys.argv
@@ -9,6 +10,9 @@ if len(argList) < 4 or len(argList) > 4:
     print("args :: = Input Image Location, Output Image Location, Edge Detection Operation")
 else:
     img = cv2.imread(argList[1])
+    cm = colourManipulation.ImageColourManip("add", img)
+    resImg = cm.mulWithImage(img)
+    cv2.imwrite('res/1x.jpg',resImg)
     print("Action to be performed : ",argList[3])
     if argList[3] == "laplace":
         laplacian = cv2.Laplacian(img, cv2.CV_64F)
@@ -22,6 +26,7 @@ else:
     elif argList[3] == "canny":
         canny = cv2.Canny(img,150,150)
         cv2.imwrite(argList[2], canny)
+
 
 
 '''
