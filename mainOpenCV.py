@@ -1,8 +1,9 @@
-import cv2
 import sys
-import  colourManipulation
+
+import cv2
 import edgeDetection
-import numpy as np
+
+# TODO: add video capability
 
 argList = sys.argv
 
@@ -13,25 +14,23 @@ else:
     img = cv2.imread(argList[1])
     edg = edgeDetection.EdgeDetector(img)
 
-    #cm = colourManipulation.ImageColourManip(img)
-    #resImg = cm.blackAndWhite()
-    #cv2.imwrite('res/1x.jpg',resImg)
+    # cm = colourManipulation.ImageColourManip(img)
+    # resImg = cm.blackAndWhite()
+    # cv2.imwrite('res/1x.jpg',resImg)
 
-    print("Action to be performed : ",argList[3])
+    print("Action to be performed : ", argList[3])
     if argList[3] == "laplace":
         laplacian = edg.laplacian()
 
     elif argList[3] == "sobelx":
-        sobelx = edg.sobel("x",5)
+        sobelx = edg.sobel("x", 5)
 
     elif argList[3] == "sobely":
-        sobely = edg.sobel("y",5)
+        sobely = edg.sobel("y", 5)
 
     elif argList[3] == "canny":
-        canny = edg.canny(100,100)
+        canny = edg.canny(100, 100)
     edg.saveImage(argList[2])
-
-
 
 '''
 
@@ -56,4 +55,3 @@ while (True):
 
 cap.release()
 cv2.destroyAllWindows()'''
-
