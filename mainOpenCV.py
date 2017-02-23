@@ -36,6 +36,18 @@ else:
             path = str(input("Input image path : "))
             img2 = cv2.imread(path)
             col.addToImage(img2)
+        elif argList[4] == "mul image":
+            path = str(input("Input image path : "))
+            img2 = cv2.imread(path)
+            col.mulWithImage(img2)
+        elif argList[4] == "div image":
+            path = str(input("Input image path : "))
+            img2 = cv2.imread(path)
+            col.divWithImage(img2)
+        elif argList[4] == "sub image":
+            path = str(input("Input image path : "))
+            img2 = cv2.imread(path)
+            col.subFromImage(img2)
 
         col.saveImage(argList[2])
 
