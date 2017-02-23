@@ -1,4 +1,4 @@
-4# OpenCV Playground
+<b> OpenCV Playground</b><br>
 A python console application that allows basic image manipuation using OpenCV (Uses python 3.5)
 Use command line arguments to perform various operations:
 
