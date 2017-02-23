@@ -7,3 +7,6 @@ There are 4 arguments to be passed:<br>
 2.Output image path<br>
 3.Image Operation Type :- 1) Colour Manipulation( passed as colour manip ) 2) Edge Detecion( passed as edge detection )<br>
 4.The operation name : Colour Manipulation - add image, sub image, div image, mul image, blackandwhite & for edge detection - laplace, sobelx, sobely, canny
+<br><br>
+Example code : 
+<br>../../../mainOpenCV.py "input image path" "output image path" "Image operation type" "Operation name"
