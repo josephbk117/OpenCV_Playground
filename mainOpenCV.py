@@ -1,57 +1,41 @@
 import sys
-
 import cv2
 import edgeDetection
+import colourManipulation
 
 # TODO: add video capability
 
 argList = sys.argv
 
-if len(argList) < 4 or len(argList) > 4:
-    print("Three arguments need to be passed")
-    print("args :: = Input Image Location, Output Image Location, Edge Detection Operation")
+if len(argList) < 5 or len(argList) > 5:
+    print("Four arguments need to be passed")
+    print("args :: = Input Image Location, Output Image Location, Typeof Operation (colour manip/edge detection) , Operation name")
 else:
     img = cv2.imread(argList[1])
-    edg = edgeDetection.EdgeDetector(img)
+    print("Action to be performed : ", argList[3] , " with " , argList[4])
+    if argList[3] == "edge detection":
+        edg = edgeDetection.EdgeDetector(img)
+        if argList[4] == "laplace":
+            edg.laplacian()
 
-    # cm = colourManipulation.ImageColourManip(img)
-    # resImg = cm.blackAndWhite()
-    # cv2.imwrite('res/1x.jpg',resImg)
+        elif argList[4] == "sobelx":
+            edg.sobel("x", 5)
 
-    print("Action to be performed : ", argList[3])
-    if argList[3] == "laplace":
-        laplacian = edg.laplacian()
+        elif argList[4] == "sobely":
+            edg.sobel("y", 5)
 
-    elif argList[3] == "sobelx":
-        sobelx = edg.sobel("x", 5)
+        elif argList[4] == "canny":
+            edg.canny(100, 100)
+        edg.saveImage(argList[2])
+    if argList[3] == "colour manip":
+        col = colourManipulation.ImageColourManip(img)
+        if argList[4] == "blacknwhite":
+            col.blackAndWhite()
+            print("Converted to Black And White")
+        elif argList[4] == "add image":
+            path = str(input("Input image path : "))
+            img2 = cv2.imread(path)
+            col.addToImage(img2)
 
-    elif argList[3] == "sobely":
-        sobely = edg.sobel("y", 5)
+        col.saveImage(argList[2])
 
-    elif argList[3] == "canny":
-        canny = edg.canny(100, 100)
-    edg.saveImage(argList[2])
-
-'''
-
-while (True):
-
-    _, frame = cap.read()
-
-    laplacian = cv2.Laplacian(frame,cv2.CV_64F)
-    sobelx = cv2.Sobel(frame,cv2.CV_64F,1,0,ksize=5)
-    sobely = cv2.Sobel(frame, cv2.CV_64F, 0, 1, ksize=5)
-    edges = cv2.Canny(frame,100,100)
-
-    cv2.imshow('original',frame)
-    cv2.imshow('laplace',laplacian)
-    cv2.imshow('sobel x', sobelx)
-    cv2.imshow('sobel y', sobely)
-    cv2.imshow('canny edges', edges)
-
-    k = cv2.waitKey(5) & 0xFF
-    if k == 27:
-        break
-
-cap.release()
-cv2.destroyAllWindows()'''
